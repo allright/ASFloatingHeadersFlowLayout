@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1086B7A91AE139FC00D3B923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7A81AE139FC00D3B923 /* AppDelegate.swift */; };
-		1086B7AB1AE139FC00D3B923 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7AA1AE139FC00D3B923 /* ViewController.swift */; };
+		1086B7AB1AE139FC00D3B923 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7AA1AE139FC00D3B923 /* GridViewController.swift */; };
 		1086B7AE1AE139FC00D3B923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7AC1AE139FC00D3B923 /* Main.storyboard */; };
 		1086B7B01AE139FC00D3B923 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7AF1AE139FC00D3B923 /* Images.xcassets */; };
 		1086B7B31AE139FC00D3B923 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7B11AE139FC00D3B923 /* LaunchScreen.xib */; };
@@ -29,7 +29,7 @@
 		1086B7A31AE139FC00D3B923 /* FloatingHeadersDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatingHeadersDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1086B7A71AE139FC00D3B923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1086B7A81AE139FC00D3B923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1086B7AA1AE139FC00D3B923 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1086B7AA1AE139FC00D3B923 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		1086B7AD1AE139FC00D3B923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1086B7AF1AE139FC00D3B923 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1086B7B21AE139FC00D3B923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				1086B7A81AE139FC00D3B923 /* AppDelegate.swift */,
-				1086B7AA1AE139FC00D3B923 /* ViewController.swift */,
+				1086B7AA1AE139FC00D3B923 /* GridViewController.swift */,
 				1086B7AC1AE139FC00D3B923 /* Main.storyboard */,
 				1086B7AF1AE139FC00D3B923 /* Images.xcassets */,
 				1086B7B11AE139FC00D3B923 /* LaunchScreen.xib */,
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1086B7AB1AE139FC00D3B923 /* ViewController.swift in Sources */,
+				1086B7AB1AE139FC00D3B923 /* GridViewController.swift in Sources */,
 				1086B7A91AE139FC00D3B923 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +411,7 @@
 				1086B7C41AE139FC00D3B923 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1086B7C51AE139FC00D3B923 /* Build configuration list for PBXNativeTarget "FloatingHeadersDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +420,7 @@
 				1086B7C71AE139FC00D3B923 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

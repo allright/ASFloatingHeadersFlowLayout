@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1086B7A91AE139FC00D3B923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7A81AE139FC00D3B923 /* AppDelegate.swift */; };
-		1086B7AB1AE139FC00D3B923 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7AA1AE139FC00D3B923 /* GridViewController.swift */; };
+		1086B7AB1AE139FC00D3B923 /* DemoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7AA1AE139FC00D3B923 /* DemoGridViewController.swift */; };
 		1086B7AE1AE139FC00D3B923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7AC1AE139FC00D3B923 /* Main.storyboard */; };
 		1086B7B01AE139FC00D3B923 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7AF1AE139FC00D3B923 /* Images.xcassets */; };
 		1086B7B31AE139FC00D3B923 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1086B7B11AE139FC00D3B923 /* LaunchScreen.xib */; };
 		1086B7BF1AE139FC00D3B923 /* FloatingHeadersDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086B7BE1AE139FC00D3B923 /* FloatingHeadersDemoTests.swift */; };
+		10AEE9D21AE7D6C800878BEE /* ASFloatingHeadersFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AEE9D11AE7D6C800878BEE /* ASFloatingHeadersFlowLayout.swift */; };
+		10AEE9D41AE7D7FA00878BEE /* CollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AEE9D31AE7D7FA00878BEE /* CollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +31,15 @@
 		1086B7A31AE139FC00D3B923 /* FloatingHeadersDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatingHeadersDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1086B7A71AE139FC00D3B923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1086B7A81AE139FC00D3B923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1086B7AA1AE139FC00D3B923 /* GridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
+		1086B7AA1AE139FC00D3B923 /* DemoGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoGridViewController.swift; sourceTree = "<group>"; };
 		1086B7AD1AE139FC00D3B923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1086B7AF1AE139FC00D3B923 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1086B7B21AE139FC00D3B923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1086B7B81AE139FC00D3B923 /* FloatingHeadersDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloatingHeadersDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1086B7BD1AE139FC00D3B923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1086B7BE1AE139FC00D3B923 /* FloatingHeadersDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingHeadersDemoTests.swift; sourceTree = "<group>"; };
+		10AEE9D11AE7D6C800878BEE /* ASFloatingHeadersFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASFloatingHeadersFlowLayout.swift; path = ASFloatingHeadersFlowLayout/ASFloatingHeadersFlowLayout.swift; sourceTree = SOURCE_ROOT; };
+		10AEE9D31AE7D7FA00878BEE /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 		1086B79A1AE139FC00D3B923 = {
 			isa = PBXGroup;
 			children = (
+				10AEE9D01AE7D62600878BEE /* ASFloatingHeadersLayout */,
 				1086B7A51AE139FC00D3B923 /* FloatingHeadersDemo */,
 				1086B7BB1AE139FC00D3B923 /* FloatingHeadersDemoTests */,
 				1086B7A41AE139FC00D3B923 /* Products */,
@@ -78,11 +83,12 @@
 			isa = PBXGroup;
 			children = (
 				1086B7A81AE139FC00D3B923 /* AppDelegate.swift */,
-				1086B7AA1AE139FC00D3B923 /* GridViewController.swift */,
+				1086B7AA1AE139FC00D3B923 /* DemoGridViewController.swift */,
 				1086B7AC1AE139FC00D3B923 /* Main.storyboard */,
 				1086B7AF1AE139FC00D3B923 /* Images.xcassets */,
 				1086B7B11AE139FC00D3B923 /* LaunchScreen.xib */,
 				1086B7A61AE139FC00D3B923 /* Supporting Files */,
+				10AEE9D31AE7D7FA00878BEE /* CollectionReusableView.swift */,
 			);
 			path = FloatingHeadersDemo;
 			sourceTree = "<group>";
@@ -110,6 +116,15 @@
 				1086B7BD1AE139FC00D3B923 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		10AEE9D01AE7D62600878BEE /* ASFloatingHeadersLayout */ = {
+			isa = PBXGroup;
+			children = (
+				10AEE9D11AE7D6C800878BEE /* ASFloatingHeadersFlowLayout.swift */,
+			);
+			name = ASFloatingHeadersLayout;
+			path = FloatingHeadersDemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +227,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1086B7AB1AE139FC00D3B923 /* GridViewController.swift in Sources */,
+				10AEE9D41AE7D7FA00878BEE /* CollectionReusableView.swift in Sources */,
+				10AEE9D21AE7D6C800878BEE /* ASFloatingHeadersFlowLayout.swift in Sources */,
+				1086B7AB1AE139FC00D3B923 /* DemoGridViewController.swift in Sources */,
 				1086B7A91AE139FC00D3B923 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

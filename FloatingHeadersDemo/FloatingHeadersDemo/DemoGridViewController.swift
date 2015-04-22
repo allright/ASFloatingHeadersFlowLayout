@@ -12,7 +12,7 @@ let CellReuseId = "Cell"
 let HeaderReuseId = "Header"
 let FooterReuseId = "Footer"
 
-class GridViewController: UICollectionViewController {
+class DemoGridViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,13 @@ class GridViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kind == UICollectionElementKindSectionHeader ? HeaderReuseId : FooterReuseId, forIndexPath: indexPath) as! UICollectionReusableView
+        
+        let reuseId = kind == UICollectionElementKindSectionHeader ? HeaderReuseId : FooterReuseId
+        let collectionReusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseId, forIndexPath: indexPath) as! CollectionReusableView
+        
+        collectionReusableView.label.text = "\(reuseId): \(indexPath.section)"
+        
+        return collectionReusableView
     }
 }
 

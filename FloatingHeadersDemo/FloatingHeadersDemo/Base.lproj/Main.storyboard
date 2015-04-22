@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cLj-Px-98u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QXf-Qo-QY8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
-        <!--Grid View Controller-->
+        <!--Demo Grid View Controller-->
         <scene sceneID="VJ6-Mc-v6A">
             <objects>
-                <collectionViewController id="cLj-Px-98u" customClass="GridViewController" customModule="FloatingHeadersDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="cLj-Px-98u" customClass="DemoGridViewController" customModule="FloatingHeadersDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="p7z-H2-BPt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.57047448596002448" green="0.64377716102407212" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Zcy-nh-HB6">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Zcy-nh-HB6" customClass="ASFloatingHeadersFlowLayout" customModule="FloatingHeadersDemo" customModuleProvider="target">
                             <size key="itemSize" width="75" height="75"/>
                             <size key="headerReferenceSize" width="40" height="20"/>
                             <size key="footerReferenceSize" width="40" height="20"/>
@@ -28,28 +28,67 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" red="1" green="0.72658710235973079" blue="0.15748495635824988" alpha="1" colorSpace="calibratedRGB"/>
-                                <size key="customSize" width="75" height="75"/>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="dgx-39-YAM">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Header" id="dgx-39-YAM" customClass="CollectionReusableView" customModule="FloatingHeadersDemo" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qkH-oA-UcN">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" red="1" green="0.53144930620714981" blue="0.55600237703641064" alpha="0.5" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <outlet property="label" destination="qkH-oA-UcN" id="iJg-XM-rgR"/>
+                            </connections>
                         </collectionReusableView>
-                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Footer" id="W7P-F8-m4N">
-                            <rect key="frame" x="0.0" y="133" width="600" height="50"/>
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Footer" id="W7P-F8-m4N" customClass="CollectionReusableView" customModule="FloatingHeadersDemo" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="103" width="600" height="20"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQJ-s6-hp3">
+                                    <rect key="frame" x="0.0" y="-1" width="600" height="21"/>
+                                    <color key="backgroundColor" red="1" green="0.92134698774296175" blue="0.6868317151517358" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" red="0.91889706694268536" green="0.90867929155662985" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <outlet property="label" destination="NQJ-s6-hp3" id="NKo-wc-a4q"/>
+                            </connections>
                         </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="cLj-Px-98u" id="8nA-dh-AJ6"/>
                             <outlet property="delegate" destination="cLj-Px-98u" id="4g7-yk-IpC"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="CAi-3e-EVA"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpg-ad-8xF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="615" y="487"/>
+            <point key="canvasLocation" x="799" y="524"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dsg-xw-S9r">
+            <objects>
+                <navigationController id="QXf-Qo-QY8" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qli-0M-ZR8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cLj-Px-98u" kind="relationship" relationship="rootViewController" id="mjF-7Z-gjG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ohU-ii-4A5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="81" y="524"/>
         </scene>
     </scenes>
 </document>

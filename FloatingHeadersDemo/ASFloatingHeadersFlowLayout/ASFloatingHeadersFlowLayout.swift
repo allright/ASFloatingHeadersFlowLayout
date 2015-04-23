@@ -10,68 +10,40 @@ import UIKit
 
 class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
     
-    let sectionHeadersAttributes = NSMutableArray()
+    var sectionHeadersAttributes:Array<UICollectionViewLayoutAttributes!> = []
     let offsets = NSMutableOrderedSet()
-    var needsLayoutUpdate:Bool = false
-    
-    
-    // СДЕЛАТЬ НОРМАЛЬНЫЙ ПЕРЕВОРОТ !!!
-    var prevWidth:CGFloat! = nil
-    
-    func isBoundsChanged(newBounds: CGRect) -> Bool{
-        if (self.prevWidth != newBounds.size.width){
-            println("CHANGED")
-            self.prevWidth = newBounds.size.width
-            return true
-        }
-        return false
-    }
-    
+    var floatingSectionIndex:Int! = nil
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        //   println("RECT = \(NSStringFromCGRect(newBounds))")
-        if (self.needsLayoutUpdate){
-            return true
-        }
-        
-        
-        invalidateLayoutWithContext(invalidationContextForBoundsChange(newBounds))
-        return super.shouldInvalidateLayoutForBoundsChange(newBounds)
+        return true
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+
         let attrs = super.layoutAttributesForElementsInRect(rect)
         
-        if let collectionView = self.collectionView{
+        return attrs?.map() {
             
-            return attrs?.map() {
-                
-                (attribute) -> UICollectionViewLayoutAttributes in
-                
-                let attr = attribute as! UICollectionViewLayoutAttributes
-                
-                let elementKind = attr.representedElementKind
-                if (elementKind != nil && elementKind == UICollectionElementKindSectionHeader){
-                    let newAttr = self.sectionHeadersAttributes[attr.indexPath.section] as! UICollectionViewLayoutAttributes
-                    return newAttr
+            (attribute) -> UICollectionViewLayoutAttributes in
+            
+            let attr = attribute as! UICollectionViewLayoutAttributes
+            
+            if let elementKind = attr.representedElementKind {
+                if (elementKind == UICollectionElementKindSectionHeader){
+                    return self.sectionHeadersAttributes[attr.indexPath.section]
                 }
-                
-                return attr
             }
+            
+            return attr
         }
-        
-        return attrs
     }
-    
     
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         
-        var attr = super.layoutAttributesForSupplementaryViewOfKind(elementKind,atIndexPath:indexPath)
         if (elementKind == UICollectionElementKindSectionHeader){
-            let newAttr = self.sectionHeadersAttributes[indexPath.section] as! UICollectionViewLayoutAttributes
-            return newAttr
+            return self.sectionHeadersAttributes[indexPath.section]
         }
-        return attr
+        return super.layoutAttributesForSupplementaryViewOfKind(elementKind,atIndexPath:indexPath)
     }
     
     func indexForOffset(offset: CGFloat) -> Int {
@@ -87,73 +59,59 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         })
     }
     
+    func setFloatingHeaderOffset(offset:CGFloat, forIndex:Int){
+        let attrs = self.sectionHeadersAttributes[forIndex]
+        attrs.frame = CGRectMake(0, offset, attrs.frame.size.width, attrs.frame.size.height)
+        attrs.zIndex = 1024
+    }
     
     override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
         
-        println("invalidationContextForBoundsChange(\(newBounds))")
+//        println("invalidationContextForBoundsChange(\(newBounds))")
         
         var context = super.invalidationContextForBoundsChange(newBounds)
-        if (isBoundsChanged(newBounds)){
-            self.needsLayoutUpdate = true
-            return context
-        }
-        
-        if (self.needsLayoutUpdate){
-            return context;
-        }
-        
+
         // здесь инвалидируем конкретный аттрибут - выставляем его новые значения!,
         let collectionView = self.collectionView!
         
         let offset:CGFloat = newBounds.origin.y + collectionView.contentInset.top
         let index = indexForOffset(offset)
         
-        context.invalidateSupplementaryElementsOfKind(UICollectionElementKindSectionHeader,
-            atIndexPaths:[NSIndexPath(forItem: 0, inSection:index)])// еще надо инвалидировать последний индекс
+        var invalidatedIndexPaths = [NSIndexPath(forItem: 0, inSection:index)];
         
-        let newAttr = self.sectionHeadersAttributes[index] as! UICollectionViewLayoutAttributes
-        var frame = newAttr.frame
-        frame.origin = CGPointMake(0,offset)
-        newAttr.frame = frame
-        newAttr.zIndex = 1024
+        self.setFloatingHeaderOffset(offset, forIndex: index)
         
+        if let floatingSectionIndex = self.floatingSectionIndex {
+            if (self.floatingSectionIndex != index){
+                invalidatedIndexPaths.append(NSIndexPath(forItem: 0, inSection:floatingSectionIndex))
+            }
+        }
+        self.floatingSectionIndex = index
+        
+        context.invalidateSupplementaryElementsOfKind(UICollectionElementKindSectionHeader,atIndexPaths:invalidatedIndexPaths)
+
         return context
     }
     
     
     override func prepareLayout() {
-        super.prepareLayout()
-        println("prepareLayout")
-        if (self.needsLayoutUpdate){
-            self.sectionHeadersAttributes.removeAllObjects()
-            self.offsets.removeAllObjects()
-            self.needsLayoutUpdate = false
-        }
-        
         
         let start = CFAbsoluteTimeGetCurrent()
+
+        
+        super.prepareLayout()
+        println("prepareLayout")
+
+        self.sectionHeadersAttributes.removeAll(keepCapacity: true)
+        self.offsets.removeAllObjects()
         
         let cv = self.collectionView!
-        self.prevWidth = cv.frame.width
-        
-        //        let offset:CGFloat = cv.contentOffset.y + cv.contentInset.top
-        //        let index = indexForOffset(offset)
         
         let numberOfSections = cv.numberOfSections()
         for var section = 0; section < numberOfSections; ++section {
             
             let attr =  super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader,atIndexPath:NSIndexPath(forItem: 0, inSection: section))
-            self.sectionHeadersAttributes.addObject(attr)
-            //
-            //            let elementKind = attr.representedElementKind
-            //            if (elementKind != nil && elementKind == UICollectionElementKindSectionHeader){
-            //                if (attr.indexPath.section == index){
-            //                    var frame = attr.frame
-            //                    frame.origin = CGPointMake(0,offset)
-            //                    attr.frame = frame
-            //                    attr.zIndex = 1024
-            //                }
-            //            }
+            self.sectionHeadersAttributes.append(attr)
             
             if (section > 0){
                 self.offsets.addObject(attr.frame.origin.y)

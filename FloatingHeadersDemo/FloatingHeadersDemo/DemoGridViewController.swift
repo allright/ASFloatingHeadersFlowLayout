@@ -26,7 +26,7 @@ class DemoGridViewController: UICollectionViewController {
 
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 100
+        return 1000
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

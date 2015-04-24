@@ -13,15 +13,13 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
     var sectionAttributes:[(header:UICollectionViewLayoutAttributes!,footer:UICollectionViewLayoutAttributes!)] = []
     let offsets = NSMutableOrderedSet()
     var floatingSectionIndex:Int! = nil
-    var previousWidth:CGFloat! = nil
+    var width:CGFloat! = nil
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
         return true
     }
     
-    
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
-
       
         let attrs = super.layoutAttributesForElementsInRect(rect)
         let ret = attrs?.map() {
@@ -43,23 +41,43 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         
-        setOffsetOfFloatingHeader()
+        let collectionView = self.collectionView!
+        
+        let offset:CGFloat = collectionView.contentOffset.y + collectionView.contentInset.top
+        let index = indexForOffset(offset)
+        
+        let footerOffset:CGFloat! = self.sectionAttributes[index].footer.frame.origin.y
+        let headerHeight:CGFloat! = self.sectionAttributes[index].header.frame.size.height
+        let maxOffsetForHeader = footerOffset - headerHeight
+        
+        let headerResultOffset = min(offset,maxOffsetForHeader)
+        
+        let headerAttrs = self.sectionAttributes[index].header
+        headerAttrs.frame = CGRectMake(0, headerResultOffset, headerAttrs.frame.size.width, headerAttrs.frame.size.height)
+        headerAttrs.zIndex = 1024
+        
         let attrs = self.sectionAttributes[indexPath.section]
         return elementKind == UICollectionElementKindSectionHeader ? attrs.header : attrs.footer
-
     }
    
+    private func testWidthChanged(newWidth:CGFloat!) -> Bool {
+        if let width = self.width{
+            if (width != newWidth){
+                self.width = newWidth
+                return true
+            }
+        }
+        self.width = newWidth
+        return false
+    }
+    
     override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
         
         var context = super.invalidationContextForBoundsChange(newBounds)
-        if let width = self.previousWidth{
-            if (width != newBounds.size.width){
-                self.previousWidth = newBounds.size.width
-                return context
-            }
-        }
         
-        self.previousWidth = newBounds.size.width
+        if (self.testWidthChanged(newBounds.size.width)){
+            return context
+        }
 
         let collectionView = self.collectionView!
         
@@ -70,7 +88,7 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         if let floatingSectionIndex = self.floatingSectionIndex {
             if (self.floatingSectionIndex != index){
                 
-                // have to restory previous section attributes to default
+                // have to restore previous section attributes to default
                 self.sectionAttributes[floatingSectionIndex].header = super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader,atIndexPath: NSIndexPath(forItem: 0, inSection: floatingSectionIndex))
                 
                 invalidatedIndexPaths.append(NSIndexPath(forItem: 0, inSection:floatingSectionIndex))
@@ -84,17 +102,8 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
     
     override func prepareLayout() {
         
-        let start = CFAbsoluteTimeGetCurrent()
-
         super.prepareLayout()
 
-        calculateSectionAttributes()
-        
-        let stop = CFAbsoluteTimeGetCurrent()
-        println("prepareLayout ... done in \(stop - start) sec")
-    }
-    
-    private func calculateSectionAttributes(){
         self.sectionAttributes.removeAll(keepCapacity: true)
         self.offsets.removeAllObjects()
         
@@ -115,18 +124,7 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
-    private func setOffsetOfFloatingHeader(){
-        let collectionView = self.collectionView!
-        let offset:CGFloat = collectionView.contentOffset.y + collectionView.contentInset.top
-        let index = indexForOffset(offset)
-        
-        let footerOffset:CGFloat! = self.sectionAttributes[index].footer.frame.origin.y
-        let headerHeight:CGFloat! = self.sectionAttributes[index].header.frame.size.height
-        let maxOffsetForHeader = footerOffset - headerHeight
-        
-        self.setFloatingHeaderOffset(min(offset,maxOffsetForHeader), forIndex: index)
-    }
-    
+   
     private func indexForOffset(offset: CGFloat) -> Int {
         
         let range = NSRange(location:0, length:self.offsets.count)
@@ -139,11 +137,4 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
                 return s0 < s1 ? .OrderedAscending : .OrderedDescending
         })
     }
-    
-    private func setFloatingHeaderOffset(offset:CGFloat, forIndex:Int){
-        let attrs = self.sectionAttributes[forIndex].header
-        attrs.frame = CGRectMake(0, offset, attrs.frame.size.width, attrs.frame.size.height)
-        attrs.zIndex = 1024
-    }
-    
 }

@@ -51,8 +51,6 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         println("layoutAttributesForElementsInRect \(rect) ... ")
         println("1contentInset.top = \(self.collectionView!.contentInset.top) .....")
         
-        setOffsetOfFloatingHeader()
-
         let attrs = super.layoutAttributesForElementsInRect(rect)
         
         let ret = attrs?.map() {
@@ -103,12 +101,11 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         attrs.frame = CGRectMake(0, offset, attrs.frame.size.width, attrs.frame.size.height)
         attrs.zIndex = 1024
         println("SetOffset: \(offset) forIndex:\(forIndex)")
+        
+        // должна помнить - самый первый offset до изменения
     }
     
-//    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
-//        <#code#>
-//    }
-    
+   
     override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
         
         
@@ -135,6 +132,9 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
 
         if let floatingSectionIndex = self.floatingSectionIndex {
             if (self.floatingSectionIndex != index){
+                
+                self.sectionHeadersAttributes[floatingSectionIndex] = super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader,atIndexPath: NSIndexPath(forItem: 0, inSection: floatingSectionIndex))
+                
                 invalidatedIndexPaths.append(NSIndexPath(forItem: 0, inSection:floatingSectionIndex))
             }
         }

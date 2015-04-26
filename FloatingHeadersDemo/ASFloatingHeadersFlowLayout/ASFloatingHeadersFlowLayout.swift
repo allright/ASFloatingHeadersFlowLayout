@@ -113,10 +113,8 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
             
             let indexPath = NSIndexPath(forItem: 0, inSection: section)
             let header =  super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader,atIndexPath:indexPath)
-            //let footer =  super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionFooter,atIndexPath:indexPath)
-            
-           // let height = footer.frame.origin.y - header.frame.origin.y
-            var sectionEnd = header.frame.origin.y + header.frame.size.height
+
+			var sectionEnd = header.frame.origin.y + header.frame.size.height
             let numberOfItemsInSection = collectionView.numberOfItemsInSection(section)
             if (numberOfItemsInSection > 0){
                 let lastItemAttrs = super.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: numberOfItemsInSection - 1, inSection: section))

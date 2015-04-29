@@ -56,7 +56,7 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         headerAttrs.zIndex = 1024
         
         let attrs = self.sectionAttributes[indexPath.section]
-        return elementKind == UICollectionElementKindSectionHeader ? attrs.header : self.layoutAttributesForDecorationViewOfKind(elementKind, atIndexPath: indexPath)
+        return elementKind == UICollectionElementKindSectionHeader ? attrs.header : self.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)
     }
    
     private func testWidthChanged(newWidth:CGFloat!) -> Bool {

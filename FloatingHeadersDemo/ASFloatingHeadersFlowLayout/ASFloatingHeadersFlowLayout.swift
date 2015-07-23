@@ -19,14 +19,14 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         return true
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
       
         let attrs = super.layoutAttributesForElementsInRect(rect)
         let ret = attrs?.map() {
             
             (attribute) -> UICollectionViewLayoutAttributes in
             
-            let attr = attribute as! UICollectionViewLayoutAttributes
+            let attr = attribute 
             
             if let elementKind = attr.representedElementKind {
                 if (elementKind == UICollectionElementKindSectionHeader){
@@ -39,14 +39,14 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         return ret
     }
     
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
+    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         
         let collectionView = self.collectionView!
         
         let offset:CGFloat = collectionView.contentOffset.y + collectionView.contentInset.top
         let index = indexForOffset(offset)
         
-        var section = self.sectionAttributes[index]
+        let section = self.sectionAttributes[index]
         
         let maxOffsetForHeader = section.sectionEnd - section.header.frame.size.height
         let headerResultOffset = min(offset,maxOffsetForHeader)
@@ -72,7 +72,7 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
     
     override func invalidationContextForBoundsChange(newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
         
-        var context = super.invalidationContextForBoundsChange(newBounds)
+        let context = super.invalidationContextForBoundsChange(newBounds)
         
         if (self.testWidthChanged(newBounds.size.width)){
             return context
@@ -114,17 +114,17 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
             let indexPath = NSIndexPath(forItem: 0, inSection: section)
             let header =  super.layoutAttributesForSupplementaryViewOfKind(UICollectionElementKindSectionHeader,atIndexPath:indexPath)
 
-			var sectionEnd = header.frame.origin.y + header.frame.size.height
+			var sectionEnd = header!.frame.origin.y + header!.frame.size.height
             let numberOfItemsInSection = collectionView.numberOfItemsInSection(section)
             if (numberOfItemsInSection > 0){
                 let lastItemAttrs = super.layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: numberOfItemsInSection - 1, inSection: section))
-                sectionEnd = lastItemAttrs.frame.origin.y + lastItemAttrs.frame.size.height + self.sectionInset.bottom
+                sectionEnd = lastItemAttrs!.frame.origin.y + lastItemAttrs!.frame.size.height + self.sectionInset.bottom
             }
             let sectionInfo:(header:UICollectionViewLayoutAttributes!,sectionEnd:CGFloat!) = (header:header,sectionEnd:sectionEnd)
             self.sectionAttributes.append(sectionInfo)
             
             if (section > 0){
-                self.offsets.addObject(header.frame.origin.y)
+                self.offsets.addObject(header!.frame.origin.y)
             }
         }
     }

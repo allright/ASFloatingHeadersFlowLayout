@@ -49,7 +49,7 @@ class ASFloatingHeadersFlowLayout: UICollectionViewFlowLayout {
         let section = self.sectionAttributes[index]
         
         let maxOffsetForHeader = section.sectionEnd - section.header.frame.size.height
-        let headerResultOffset = min(offset,maxOffsetForHeader)
+        let headerResultOffset = offset > 0 ? min(offset,maxOffsetForHeader) : 0
         
         let headerAttrs = section.header
         headerAttrs.frame = CGRectMake(0, headerResultOffset, headerAttrs.frame.size.width, headerAttrs.frame.size.height)
